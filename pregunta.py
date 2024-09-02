@@ -40,6 +40,8 @@ def clean_data():
         .astype(float)
     )
 
+    df["comuna_ciudadano"] = pd.to_numeric(df["comuna_ciudadano"], errors='coerce').fillna(0).astype(int)
+
     # eliminar duplicados
     df = df.drop_duplicates()
     
@@ -55,6 +57,9 @@ def clean_data():
     
     
     return df
+
+barrio = clean_data().barrio.value_counts()
+print(barrio)
 #sex = clean_data().sexo.value_counts().to_list()
 #print(sex)
 
