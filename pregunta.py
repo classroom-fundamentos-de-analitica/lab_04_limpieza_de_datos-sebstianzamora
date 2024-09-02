@@ -29,7 +29,6 @@ def clean_data():
     df["idea_negocio"] = df["idea_negocio"].str.lower().str.strip()
     df["línea_credito"] = df["línea_credito"].str.lower().str.strip()
 
-    df["comuna_ciudadano"] = pd.to_numeric(df["comuna_ciudadano"], errors='coerce').fillna(0).astype(int)
 
     df["fecha_de_beneficio"] = pd.to_datetime(
         df["fecha_de_beneficio"], format="%d/%m/%Y", errors="coerce"
