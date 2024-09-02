@@ -29,6 +29,8 @@ def clean_data():
     df["idea_negocio"] = df["idea_negocio"].str.lower().str.strip()
     df["línea_credito"] = df["línea_credito"].str.lower().str.strip()
 
+    df["comuna_ciudadano"] = pd.to_numeric(df["comuna_ciudadano"], errors='coerce').fillna(0).astype(int)
+
     df["fecha_de_beneficio"] = pd.to_datetime(
         df["fecha_de_beneficio"], format="%d/%m/%Y", errors="coerce"
     ).combine_first(pd.to_datetime(df["fecha_de_beneficio"], format="%Y/%m/%d", errors="coerce"))
@@ -40,19 +42,20 @@ def clean_data():
         .astype(float)
     )
 
-    df["comuna_ciudadano"] = pd.to_numeric(df["comuna_ciudadano"], errors='coerce').fillna(0).astype(int)
+    
 
     # eliminar duplicados
     df = df.drop_duplicates()
     
     # eliminación de filas con valores faltantes
     df = df.dropna()
+
     
     # estandarizar
     # convertir texto a minúsculas y eliminar espacios adicionales en columnas de texto
-    df.columns = df.columns.str.strip().str.lower()
-    for col in df.select_dtypes(include=['object']).columns:
-        df[col] = df[col].str.strip().str.lower()
+    # df.columns = df.columns.str.strip().str.lower()
+    # for col in df.select_dtypes(include=['object']).columns:
+    #     df[col] = df[col].str.strip().str.lower()
 
     
     
